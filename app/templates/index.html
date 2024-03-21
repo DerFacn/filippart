@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user %}
+{{ user.username }} <form method="post" action="{{ url_for('auth.logout') }}"><button>Logout</button></form>
+{% else %}
+<a href="{{ url_for('auth.signup') }}">Signup</a>
+<a href="{{ url_for('auth.login') }}">Login</a>
+{% endif %}
+{% endblock %}

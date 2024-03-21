@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upload Form</title>
+<style>
+  .preview-container {
+    margin-top: 10px;
+  }
+  .preview-image {
+    max-width: 200px;
+    max-height: 200px;
+    margin-right: 10px;
+  }
+</style>
+</head>
+<body>
+
+<form id="uploadForm" method="post" enctype="multipart/form-data" name="collection">
+  <button type="button" onclick="addInput()">Додати фото</button><button>Створити колекцію</button>
+  <input type="text" name="collection_name" placeholder="Collection name" required>
+</form>
+
+<script>
+let idCounter = 0;
+
+function addInput() {
+  idCounter++;
+
+  const inputGroup = document.createElement('div');
+  inputGroup.id = `group_${idCounter}`;
+
+  const inputFile = document.createElement('input');
+  inputFile.type = 'file';
+  inputFile.name = `picture_${idCounter}`;
+  inputFile.addEventListener('change', function() {
+    previewImage(this, `preview_${idCounter}`);
+  });
+
+  const inputName = document.createElement('input');
+  inputName.type = 'text';
+  inputName.name = `name_${idCounter}`;
+  inputName.placeholder = 'Ім\'я';
+
+  const inputDescription = document.createElement('input');
+  inputDescription.type = 'text';
+  inputDescription.name = `description_${idCounter}`;
+  inputDescription.placeholder = 'Опис';
+
+  const deleteButton = document.createElement('button');
+  deleteButton.textContent = 'Видалити';
+  deleteButton.addEventListener('click', function() {
+    inputGroup.remove();
+  });
+
+  inputGroup.appendChild(inputFile);
+  inputGroup.appendChild(inputName);
+  inputGroup.appendChild(inputDescription);
+  inputGroup.appendChild(deleteButton);
+
+  document.getElementById('uploadForm').appendChild(inputGroup);
+}
+
+function previewImage(input, previewId) {
+  let preview = document.getElementById(previewId);
+
+  if (preview) {
+    preview.parentNode.removeChild(preview); // Видаляємо попередній перегляд, якщо він вже існує
+  }
+
+  const previewContainer = document.createElement('div');
+  previewContainer.className = 'preview-container';
+  previewContainer.id = previewId;
+
+  preview = document.createElement('img');
+  preview.className = 'preview-image';
+  previewContainer.appendChild(preview);
+
+  const group = input.parentNode;
+  group.appendChild(previewContainer);
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    preview.src = e.target.result;
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+</script>
+
+</body>
+</html>

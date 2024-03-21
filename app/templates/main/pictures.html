@@ -1,0 +1,12 @@
+{% if pictures %}
+{% for picture in pictures %}
+<p>
+    <img src="{{ url_for('static', filename='pictures/' + picture.uri) }}" alt="{{ picture.name }}" style="width: 200px;"><br>
+    Name: <strong>{{ picture.name }}</strong><br>
+    Description: <strong>{{ picture.description }}</strong>
+</p>
+<hr>
+{% endfor %}
+{% else %}
+No pictures yet
+{% endif %}
