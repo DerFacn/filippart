@@ -1,14 +1,12 @@
 from app.db import session
 from app.models import User
-from flask import render_template, request, flash, redirect, url_for
+from flask import render_template, request, flash, redirect, url_for, g
 from flask import session as s
 from .utils import generate_hash, check_password
-from app.utils import get_user
 
 
-@get_user
-def signup(user_):
-    if user_:
+def signup():
+    if g.user:
         return redirect(url_for('main.index'))  # If already logged in - redirect
 
     title = 'Signup'
@@ -32,9 +30,8 @@ def signup(user_):
     return render_template('auth/signup.html', title=title)  # Opened in browser
 
 
-@get_user
-def login(user_):
-    if user_:
+def login():
+    if g.user:
         return redirect(url_for('main.index'))
 
     title = 'Login'
@@ -60,4 +57,5 @@ def login(user_):
 
 def logout():
     s['user_id'] = None
+    g.user = None
     return redirect(url_for('main.index'))
