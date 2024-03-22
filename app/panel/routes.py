@@ -1,26 +1,18 @@
 from flask import render_template, request, redirect, url_for, flash
-from flask_httpauth import HTTPBasicAuth
 from slugify import slugify
 from app import app
 import os
 from app.models import Picture, Collection
 from app.db import session
-
-auth = HTTPBasicAuth()
-
-
-@auth.verify_password
-def verify_password(username, password):
-    if username == 'admin' and password == '12345':
-        return username
+from app.utils import admin_required
 
 
-@auth.login_required
+@admin_required
 def index():
     return render_template('panel/index.html')
 
 
-@auth.login_required
+@admin_required
 def create_picture():
     if request.method == 'GET':
         return render_template('panel/upload.html')
@@ -37,7 +29,7 @@ def create_picture():
     return redirect(url_for('panel.index'))
 
 
-@auth.login_required
+@admin_required
 def create_collection():
     if request.method == 'GET':
         return render_template('panel/collection.html')
@@ -68,21 +60,21 @@ def create_collection():
     return '200'
 
 
-@auth.login_required
+@admin_required
 def update_picture():
     return 'edit'
 
 
-@auth.login_required
+@admin_required
 def update_collection():
     return 'edit collection'
 
 
-@auth.login_required
+@admin_required
 def delete_picture():
     return 'delete picture'
 
 
-@auth.login_required
+@admin_required
 def delete_collection():
     return 'delete collection'
