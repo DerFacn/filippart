@@ -1,4 +1,4 @@
-from flask import Flask, session, render_template, request
+from flask import Flask
 import os
 from app.utils import get_user
 
@@ -12,3 +12,6 @@ app.register_blueprint(main.bp)
 app.register_blueprint(auth.bp)
 app.register_blueprint(panel.bp)
 
+
+from app.commands import fill
+app.cli.add_command(fill)
