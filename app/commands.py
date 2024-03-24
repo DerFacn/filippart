@@ -27,7 +27,7 @@ def fill():
 @with_appcontext
 def gallery():
     for c in range(5):
-        new_collection = Collection(name=f'Collection {c}')
+        new_collection = Collection(name=f'Collection {c}', preview='image.png', description=f'{randomizer(1)}')
         session.add(new_collection)
         session.commit()
 
@@ -38,6 +38,7 @@ def gallery():
                 name=f'Picture {name}',
                 description=description,
                 uri='image.png',
+                price='50',
                 collection_id=new_collection.id
             )
             session.add(new_picture)

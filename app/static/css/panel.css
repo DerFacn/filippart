@@ -1,0 +1,66 @@
+.card {
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 15px;
+}
+
+.card .collection {
+    display: flex;
+    justify-content: flex-start;
+    margin: 5px;
+}
+
+.card .collection img {
+    max-width: 300px;
+}
+
+.collection .info {
+    margin-left: 25px;
+    display: flex;
+}
+
+.collection .info h1 {
+    cursor: pointer;
+    user-select: none;
+}
+
+.collection .info p {
+    width: 50%;
+}
+
+.pictures .info {
+    margin-left: 25px;
+    display: flex;
+}
+
+.info form {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    justify-content: space-around;
+}
+
+.pictures {
+    display: none;
+    border-top: 1px solid black;
+    margin-top: 15px;
+}
+
+.pictures img {
+    max-width: 15%;
+    height: auto;
+}
+
+.card.active .pictures {
+    display: block;
+}
+
+.pictures .small-card {
+    display: flex;
+    justify-content: flex-start;
+    margin: 5px;
+}
+
+.pictures .small-card h1 {
+    font-size: 20px;
+}

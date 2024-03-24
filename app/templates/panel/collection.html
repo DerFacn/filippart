@@ -17,9 +17,11 @@
 </head>
 <body>
 
-<form id="uploadForm" method="post" enctype="multipart/form-data" name="collection">
-  <button type="button" onclick="addInput()">Додати фото</button><button>Створити колекцію</button>
+<form id="uploadForm" method="post" enctype="multipart/form-data">
+  <input type="file" name="collection_preview">
   <input type="text" name="collection_name" placeholder="Collection name" required>
+  <input type="text" name="collection_description" placeholder="Collection description" required>
+  <button type="button" onclick="addInput()">Додати фото</button><button>Створити колекцію</button>
 </form>
 
 <script>
@@ -35,7 +37,7 @@ function addInput() {
   inputFile.type = 'file';
   inputFile.name = `picture_${idCounter}`;
   inputFile.addEventListener('change', function() {
-    previewImage(this, `preview_${idCounter}`);
+    previewImage(this, `preview_${inputGroup.id}`);
   });
 
   const inputName = document.createElement('input');
@@ -48,16 +50,32 @@ function addInput() {
   inputDescription.name = `description_${idCounter}`;
   inputDescription.placeholder = 'Опис';
 
+  const inputPrice = document.createElement('input');
+  inputPrice.type = 'number';
+  inputPrice.name = `price_${idCounter}`;
+  inputPrice.placeholder = 'Ціна';
+
   const deleteButton = document.createElement('button');
   deleteButton.textContent = 'Видалити';
   deleteButton.addEventListener('click', function() {
     inputGroup.remove();
   });
 
+  const previewDiv = document.createElement('div');
+  previewDiv.className = 'preview-container';
+  previewDiv.style.display = "none";
+  let previewImg = document.createElement('img');
+  previewImg.className = 'preview-image';
+  previewImg.id = `preview_group_${idCounter}`
+
+  previewDiv.appendChild(previewImg);
+
   inputGroup.appendChild(inputFile);
   inputGroup.appendChild(inputName);
   inputGroup.appendChild(inputDescription);
+  inputGroup.appendChild(inputPrice);
   inputGroup.appendChild(deleteButton);
+  inputGroup.appendChild(previewDiv);
 
   document.getElementById('uploadForm').appendChild(inputGroup);
 }
@@ -66,25 +84,14 @@ function previewImage(input, previewId) {
   let preview = document.getElementById(previewId);
 
   if (preview) {
-    preview.parentNode.removeChild(preview); // Видаляємо попередній перегляд, якщо він вже існує
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      preview.src = e.target.result;
+    };
+    reader.readAsDataURL(input.files[0]);
+    preview.parentNode.style.display = 'block';
+    return
   }
-
-  const previewContainer = document.createElement('div');
-  previewContainer.className = 'preview-container';
-  previewContainer.id = previewId;
-
-  preview = document.createElement('img');
-  preview.className = 'preview-image';
-  previewContainer.appendChild(preview);
-
-  const group = input.parentNode;
-  group.appendChild(previewContainer);
-
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    preview.src = e.target.result;
-  };
-  reader.readAsDataURL(input.files[0]);
 }
 </script>
 

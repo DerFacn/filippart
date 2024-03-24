@@ -1,4 +1,65 @@
-<div class="panel">
-    <a href="{{ url_for('panel.upload') }}">Upload picture</a>
-    <a href="{{ url_for('panel.new_collection') }}">New collection</a>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/panel.css') }}">
+    <title>JOPA</title>
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('panel.create_collection') }}">Create collection</a>
+        {% if collections %}
+            {% for collection in collections %}
+                <div class="card">
+                    <div class="collection">
+                        <img src="{{ url_for('static', filename='pictures/' + collection.preview) }}" alt="Image">
+                        <div class="info">
+                            <span>
+                                <h1 onclick="toggleDescription(this)">Name: {{ collection.name }}</h1>
+                                <p>Description: {{ collection.description }}</p>
+                            </span>
+                            <form method="post">
+                                <input type="text" placeholder="Name">
+                                <textarea placeholder="Description"></textarea>
+                                <button>Update</button>
+                            </form>
+                            <form>
+                                <button style="color: red; padding: 5px 30px 5px 30px">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% for picture in collection.pictures %}
+                    <div class="pictures">
+                        <div class="small-card">
+                            <img src="{{ url_for('static', filename='pictures/' + picture.uri) }}" alt="Image">
+                            <div class="info">
+                                <span>
+                                    <h1>Name: {{ picture.name }}</h1>
+                                    <p>Description: {{ picture.description }}</p>
+                                    <p>Price: ${{ picture.price }}</p>
+                                </span>
+                                <form method="post">
+                                    <input type="text" placeholder="Name">
+                                    <input type="text" placeholder="Description">
+                                    <input type="number" placeholder="Price">
+                                    <button>Update</button>
+                                </form>
+                                <form method="post">
+                                    <button style="color: red; padding: 5px 30px 5px 30px">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+<script>
+    function toggleDescription(card) {
+        card.parentNode.parentNode.parentNode.parentNode.classList.toggle('active');
+    }
+</script>
+</html>
