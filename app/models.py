@@ -20,7 +20,7 @@ class Picture(Base):
     name: Mapped[str] = mapped_column(String(200))
     description: Mapped[str] = mapped_column(String(10000))
     uri: Mapped[str] = mapped_column(String(10000))
-    price: Mapped[int]
+    price: Mapped[float]
     collection: Mapped[List['Collection']] = relationship(back_populates='pictures', cascade='all')
     collection_id: Mapped[str] = mapped_column(ForeignKey('collections.id'))
     created_at: Mapped[str] = mapped_column(DateTime(), server_default=func.now())

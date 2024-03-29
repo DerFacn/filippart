@@ -1,0 +1,25 @@
+<form method="post" enctype="multipart/form-data">
+    <input type="file" accept="image/*" name="picture" id="imgInp" required />
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="text" name="description" placeholder="Description" required>
+    <input type="number" name="price" placeholder="Price" required>
+    {% if collections %}
+    <select name="collection_id">
+        <option value="0" selected>Without collection</option>
+        {% for collection in collections %}
+        <option value="{{ collection.id }}">{{ collection.name }}</option>
+        {% endfor %}
+    </select>
+    {% endif %}
+    <button>Upload picture</button>
+</form>
+<img id="blah" src="#" alt="your image" style="max-width: 600px; display: none"/>
+<script>
+    imgInp.onchange = evt => {
+        const [file] = imgInp.files
+        if (file) {
+            blah.src = URL.createObjectURL(file)
+            blah.style.display = 'block'
+        }
+    }
+</script>

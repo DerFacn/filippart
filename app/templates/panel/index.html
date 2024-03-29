@@ -9,6 +9,7 @@
 <body>
     <div class="container">
         <a href="{{ url_for('panel.create_collection') }}">Create collection</a>
+        <a href="{{ url_for('panel.create_picture') }}">Create picture</a>
         {% if collections %}
             {% for collection in collections %}
                 <div class="card">
@@ -54,6 +55,8 @@
                     {% endfor %}
                 </div>
             {% endfor %}
+        {% else %}
+        Collections is not even uploaded.
         {% endif %}
     </div>
 </body>

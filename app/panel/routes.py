@@ -16,13 +16,22 @@ def index():
 @admin_required
 def create_picture():
     if request.method == 'GET':
-        return render_template('panel/upload.html')
+        collections = session.query(Collection).all()
+        return render_template('panel/picture.html', collections=collections)
+
+    name = request.form.get('name')
+    desc = request.form.get('description')
+    price = request.form.get('price')
+    collection_id = request.form.get('collection_id')
 
     file = request.files.get('picture')
     filetype = file.content_type.split('/')[1]
     filename = f"{slugify(request.form.get('name'), separator="_")}.{filetype}"
     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    picture = Picture(name=filename)
+    if collection_id:
+        picture = Picture(name=name, description=desc, uri=filename, price=price, collection_id=collection_id)
+    else:
+        picture = Picture(name=name, description=desc, uri=filename, price=price)
     session.add(picture)
     session.commit()
 
