@@ -10,6 +10,7 @@
     <div class="container">
         <a href="{{ url_for('panel.create_collection') }}">Create collection</a>
         <a href="{{ url_for('panel.create_picture') }}">Create picture</a>
+        <a href="{{ url_for('auth.logout') }}" style="color: red;">Logout</a>
         {% if collections %}
             {% for collection in collections %}
                 <div class="card">
@@ -40,11 +41,11 @@
                                     <p>Description: {{ picture.description }}</p>
                                     <p>Price: ${{ picture.price }}</p>
                                 </span>
-                                <form method="post">
-                                    <input type="text" placeholder="Name">
-                                    <input type="text" placeholder="Description">
-                                    <input type="number" placeholder="Price">
-                                    <button>Update</button>
+                                <form onsubmit="return false;" id="pic_{{ picture.id }}">
+                                    <input type="text" id="pic_name_{{ picture.id }}" placeholder="Name">
+                                    <input type="text" id="pic_desc_{{ picture.id }}" placeholder="Description">
+                                    <input type="number" id="pic_price_{{ picture.id }}" placeholder="Price">
+                                    <button onclick="updatePicture({{ picture.id }}); return false;">Update</button>
                                 </form>
                                 <form method="post">
                                     <button style="color: red; padding: 5px 30px 5px 30px">Delete</button>
@@ -63,6 +64,13 @@
 <script>
     function toggleDescription(card) {
         card.parentNode.parentNode.parentNode.parentNode.classList.toggle('active');
+    }
+
+    async function updatePicture (id) {
+        const name = document.getElementById(`pic_name_${id}`).value
+        const desc = document.getElementById(`pic_desc_{id}`).value
+        const price = document.getElementById(`pic_price_${id}`).value
+
     }
 </script>
 </html>

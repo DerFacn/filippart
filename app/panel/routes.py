@@ -84,7 +84,8 @@ def create_collection():
 
 @admin_required
 def update_picture():
-    return 'edit'
+    data = request.form.keys()
+    return f'{data}'
 
 
 @admin_required

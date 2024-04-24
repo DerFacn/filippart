@@ -1,10 +1,72 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if g.user %}
-{{ g.user.username }} <form method="post" action="{{ url_for('auth.logout') }}"><button>Logout</button></form>
-{% else %}
-<a href="{{ url_for('auth.signup') }}">Signup</a>
-<a href="{{ url_for('auth.login') }}">Login</a>
-{% endif %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<div class="header">
+    <div class="logo" id="logo">
+        <img src="{{ url_for('static', filename='icons/logo.svg') }}" alt="brand">
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Gallery <i class="fa fa-caret-down"></i></button>
+        <div class="dropdown-content">
+            <a href="#">Collection 2024</a>
+            <a href="#">Collection 2023</a>
+            <a href="#">Collection 2022</a>
+            <a href="#">Collection 2021</a>
+            <a href="#">Collection 2020</a>
+        </div>
+    </div>
+    <a href="#">About</a>
+    <a href="#">Reviews</a>
+    <a href="#">Contacts</a>
+    <a href="#">FAQ</a>
+    {% if g.user %}
+        {% if g.user.username == 'admin' %}
+            <a href="{{ url_for('panel.index') }}">{{ g.user.username }}</a>
+        {% else %}
+            <a href="#">{{ g.user.username }}</a>
+        {% endif %}
+    {% else %}
+        <a href="{{ url_for('auth.login') }}">Login</a>
+    {% endif %}
+
+</div>
+<div class="wrapper">
+
+    <div class="container">
+        <div class="product">
+            <img src="{{ url_for('static', filename='pictures/image.png') }}" alt="Example">
+            <div class="info">
+                <h1>Collection name</h1>
+                <div class="description">
+                    consectetur adipisicing elit. Quia, iusto temporibus.
+                    Fugit dolores architecto qui sit ea vitae, voluptate
+                    omnis esse odit sapiente inventore, quaerat autem mollitia
+                    velit beatae nam?
+                </div>
+                <div class="order">
+                    <a href="#">Go to gallery</a>
+                </div>
+            </div>
+        </div>
+        <div class="product">
+            <div class="info right">
+                <h1>Your own idea</h1>
+                <div class="description">
+                    consectetur adipisicing elit. Quia, iusto temporibus.
+                    Fugit dolores architecto qui sit ea vitae, voluptate
+                    omnis esse odit sapiente inventore, quaerat autem mollitia
+                    velit beatae nam?
+                </div>
+                <div class="order">
+                    <a href="#">Go to gallery</a>
+                </div>
+            </div>
+            <img src="{{ url_for('static', filename='pictures/image.png') }}" alt="Example">
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/onload.js') }}"></script>
 {% endblock %}
