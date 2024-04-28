@@ -3,97 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Upload Form</title>
-<style>
-  .preview-container {
-    margin-top: 10px;
-  }
-  .preview-image {
-    max-width: 200px;
-    max-height: 200px;
-    margin-right: 10px;
-  }
-</style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/panel/collection.css') }}">
+<title>Create collection</title>
 </head>
 <body>
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+            <div class="menu">
+                <label for="collection_preview">
+                    <img src="{{ url_for('static', filename='icons/picture.svg') }}" alt="Picture frame">
+                </label>
+                <input type="file" class="hidden" id="collection_preview" name="collection_preview" onchange="previewImage(this)">
+                <input type="text" class="heavy" name="collection_name" placeholder="Collection name" required>
+                <button class="info" id="addBtn" type="button"> + Add picture</button>
+                <textarea id="collection_description" name="collection_description" placeholder="Collection description"></textarea>
+                <button class="success" type="submit">✓ Create collection</button>
+            </div>
+            <div class="content" id="content">
 
-<form id="uploadForm" method="post" enctype="multipart/form-data">
-  <input type="file" name="collection_preview">
-  <input type="text" name="collection_name" placeholder="Collection name" required>
-  <input type="text" name="collection_description" placeholder="Collection description" required>
-  <button type="button" onclick="addInput()">Додати фото</button><button>Створити колекцію</button>
-</form>
+<!--                  <div class="card">-->
+<!--                      <div class="col-left">-->
+<!--                          <label for="picture_preview">-->
+<!--                              <img src="{{ url_for('static', filename='icons/picture.svg') }}" alt="Picture frame">-->
+<!--                          </label>-->
+<!--                          <input type="file" class="hidden" id="picture_preview">-->
+<!--                          <input type="text" class="heavy" placeholder="Picture name">-->
+<!--                          <input type="number" placeholder="Price">-->
+<!--                          <button class="warning" type="button">✖ Delete picture</button>-->
+<!--                      </div>-->
+<!--                      <div class="col-right">-->
+<!--                          <textarea placeholder="Picture description"></textarea>-->
+<!--                      </div>-->
+<!--                  </div>-->
 
-<script>
-let idCounter = 0;
+              </div>
+        </form>
+    </div>
 
-function addInput() {
-  idCounter++;
-
-  const inputGroup = document.createElement('div');
-  inputGroup.id = `group_${idCounter}`;
-
-  const inputFile = document.createElement('input');
-  inputFile.type = 'file';
-  inputFile.name = `picture_${idCounter}`;
-  inputFile.addEventListener('change', function() {
-    previewImage(this, `preview_${inputGroup.id}`);
-  });
-
-  const inputName = document.createElement('input');
-  inputName.type = 'text';
-  inputName.name = `name_${idCounter}`;
-  inputName.placeholder = 'Ім\'я';
-
-  const inputDescription = document.createElement('input');
-  inputDescription.type = 'text';
-  inputDescription.name = `description_${idCounter}`;
-  inputDescription.placeholder = 'Опис';
-
-  const inputPrice = document.createElement('input');
-  inputPrice.type = 'number';
-  inputPrice.name = `price_${idCounter}`;
-  inputPrice.placeholder = 'Ціна';
-
-  const deleteButton = document.createElement('button');
-  deleteButton.textContent = 'Видалити';
-  deleteButton.addEventListener('click', function() {
-    inputGroup.remove();
-  });
-
-  const previewDiv = document.createElement('div');
-  previewDiv.className = 'preview-container';
-  previewDiv.style.display = "none";
-  let previewImg = document.createElement('img');
-  previewImg.className = 'preview-image';
-  previewImg.id = `preview_group_${idCounter}`
-
-  previewDiv.appendChild(previewImg);
-
-  inputGroup.appendChild(inputFile);
-  inputGroup.appendChild(inputName);
-  inputGroup.appendChild(inputDescription);
-  inputGroup.appendChild(inputPrice);
-  inputGroup.appendChild(deleteButton);
-  inputGroup.appendChild(previewDiv);
-
-  document.getElementById('uploadForm').appendChild(inputGroup);
-}
-
-function previewImage(input, previewId) {
-  let preview = document.getElementById(previewId);
-
-  if (preview) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      preview.src = e.target.result;
-    };
-    reader.readAsDataURL(input.files[0]);
-    preview.parentNode.style.display = 'block';
-    return
-  }
-}
-</script>
-
+          <!--<form id="uploadForm" method="post" enctype="multipart/form-data">-->
+<!--  <div class="header">-->
+<!--    <input type="file" name="collection_preview">-->
+<!--    <input type="text" name="collection_name" placeholder="Collection name" required>-->
+<!--    <input type="text" name="collection_description" placeholder="Collection description" required>-->
+<!--    <button type="button" onclick="addInput()">+ Add picture</button>-->
+<!--    <button>✓ Create collection</button>-->
+<!--  </div>-->
+<!--</form>-->
+<script src="{{ url_for('static', filename='js/panel/collection.js') }}"></script>
 </body>
 </html>

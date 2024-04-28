@@ -8,9 +8,11 @@
 </head>
 <body>
     <div class="container">
-        <a href="{{ url_for('panel.create_collection') }}">Create collection</a>
-        <a href="{{ url_for('panel.create_picture') }}">Create picture</a>
-        <a href="{{ url_for('auth.logout') }}" style="color: red;">Logout</a>
+        <div class="header">
+            <a href="{{ url_for('panel.create_collection') }}">Create collection</a>
+            <a href="{{ url_for('panel.create_picture') }}">Create picture</a>
+            <a href="{{ url_for('auth.logout') }}" style="color: red;">Logout</a>
+        </div>
         {% if collections %}
             {% for collection in collections %}
                 <div class="card">

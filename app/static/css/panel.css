@@ -1,6 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+.header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    padding: 20px 10px 20px 10px;
+    border: 2px solid black;
+    border-radius: 15px;
+    font-family: 'Inter', sans-serif;
+}
+
+.header a {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .card {
-    border: 1px solid black;
-    border-radius: 20px;
+    border: 2px solid black;
+    border-radius: 15px;
     padding: 15px;
 }
 

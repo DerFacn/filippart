@@ -26,7 +26,8 @@ def create_picture():
 
     file = request.files.get('picture')
     filetype = file.content_type.split('/')[1]
-    filename = f"{slugify(request.form.get('name'), separator="_")}.{filetype}"
+    name_ = slugify(request.form.get('name'), separator="_")
+    filename = f"{name_}.{filetype}"
     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     if collection_id:
         picture = Picture(name=name, description=desc, uri=filename, price=price, collection_id=collection_id)
@@ -49,7 +50,8 @@ def create_collection():
 
     preview = request.files.get('collection_preview')
     filetype = preview.content_type.split('/')[1]
-    filename = f"{slugify(str(preview.filename), separator="_")}.{filetype}"
+    name_ = slugify(str(preview.filename), separator="_")
+    filename = f"{name_}.{filetype}"
     preview.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
     collection = Collection(name=c_name, description=c_desc, preview=filename)
@@ -65,7 +67,8 @@ def create_collection():
 
         file = request.files.get(f'picture_{i}')
         filetype = file.content_type.split('/')[1]
-        filename = f"{slugify(str(group_values[0]), separator="_")}.{filetype}"
+        fname_ = slugify(str(group_values[0]), separator="_")
+        filename = f"{fname_}.{filetype}"
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         new_picture = Picture(
