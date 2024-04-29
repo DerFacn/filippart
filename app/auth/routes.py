@@ -52,7 +52,7 @@ def login():
         s['user_id'] = user.id
         return redirect(url_for('main.index'))
 
-    return render_template('auth/signup.html', title=title)
+    return render_template('auth/login.html', title=title)
 
 
 def logout():
