@@ -72,3 +72,24 @@ a {
     color: #0168A7;
     font-size: 20px;
 }
+
+.oauth {
+    width: 603px;
+    height: 55px;
+    border: 2px solid black;
+    border-radius: 15px;
+    font-size: 20px;
+    font-family: 'Inter';
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.oauth img {
+    width: 30px;
+    height: 30px;
+    margin: 0;
+}
