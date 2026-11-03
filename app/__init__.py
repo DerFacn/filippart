@@ -3,7 +3,9 @@ import os
 from app.utils import get_user
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '123'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+if not app.config['SECRET_KEY']:
+    raise RuntimeError('Set the SECRET_KEY environment variable, e.g. to the output of: python -c "import secrets; print(secrets.token_hex(32))"')
 app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(__file__), 'static/pictures')
 
 
